@@ -3817,6 +3817,20 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves the FusionAuth version string.
+   *
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveVersion()
+  {
+    return $this->start()->uri("/api/system/version")
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
    *
    * @param string $webhookId (Optional) The Id of the webhook.
