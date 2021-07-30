@@ -5108,6 +5108,30 @@ class FusionAuthClient
   }
 
   /**
+   * It's a JWT vending machine!
+   * 
+   * Issue a new access token (JWT) with the provided claims in the request. This JWT is not scoped to a tenant or user, it is a free form 
+   * token that will contain what claims you provide.
+   * <p>
+   * The iat, exp and jti claims will be added by FusionAuth, all other claims must be provided by the caller.
+   * 
+   * If a TTL is not provided in the request, the TTL will be retrieved from the default Tenant or the Tenant specified on the request either 
+   * by way of the X-FusionAuth-TenantId request header, or a tenant scoped API key.
+   *
+   * @param array $request The request that contains all of the claims for this JWT.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function vendJWT($request)
+  {
+    return $this->start()->uri("/api/jwt/vend")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Confirms a email verification. The Id given is usually from an email sent to the user.
    *
    * @param string $verificationId The email verification id sent to the user.
