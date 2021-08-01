@@ -1841,6 +1841,23 @@ class FusionAuthClient
   }
 
   /**
+   * The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
+   * client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
+   *
+   * @param array $request The request object that contains all of the information used to logout the user.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function logout($request)
+  {
+    return $this->startAnonymous()->uri("/api/logout")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Retrieves the identity provider for the given domain. A 200 response code indicates the domain is managed
    * by a registered identity provider. A 404 indicates the domain is not managed.
    *
