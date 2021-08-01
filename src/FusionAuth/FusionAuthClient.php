@@ -4074,55 +4074,6 @@ class FusionAuthClient
   }
 
   /**
-   * Revokes refresh tokens using the information in the JSON body. The handling for this method is the same as the revokeRefreshToken method
-   * and is based on the information you provide in the RefreshDeleteRequest object. See that method for additional information.
-   *
-   * @param array $request The request information used to revoke the refresh tokens.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function revokeRefreshTokenWithRequest($request)
-  {
-    return $this->start()->uri("/api/jwt/refresh")
-        ->bodyHandler(new JSONBodyHandler($request))
-        ->delete()
-        ->go();
-  }
-
-  /**
-   * Revokes a single refresh token by the unique Id. The unique Id is not sensitive as it cannot be used to obtain another JWT.
-   *
-   * @param string $tokenId The unique Id of the token to delete.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function revokeRefreshTokenById($tokenId)
-  {
-    return $this->start()->uri("/api/jwt/refresh")
-        ->urlSegment($tokenId)
-        ->delete()
-        ->go();
-  }
-
-  /**
-   * Revokes a single refresh token by using the actual refresh token value. This refresh token value is sensitive, so  be careful with this API request.
-   *
-   * @param string $token The refresh token to delete.
-   *
-   * @return ClientResponse The ClientResponse.
-   * @throws \Exception
-   */
-  public function revokeRefreshTokenByToken($token)
-  {
-    return $this->start()->uri("/api/jwt/refresh")
-        ->urlParameter("token", $token)
-        ->delete()
-        ->go();
-  }
-
-  /**
    * Revokes refresh tokens.
    * 
    * Usage examples:
@@ -4161,6 +4112,38 @@ class FusionAuthClient
         ->urlParameter("token", $token)
         ->urlParameter("userId", $userId)
         ->urlParameter("applicationId", $applicationId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revokes a single refresh token by the unique Id. The unique Id is not sensitive as it cannot be used to obtain another JWT.
+   *
+   * @param string $tokenId The unique Id of the token to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokenById($tokenId)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlSegment($tokenId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revokes a single refresh token by using the actual refresh token value. This refresh token value is sensitive, so  be careful with this API request.
+   *
+   * @param string $token The refresh token to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokenByToken($token)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->urlParameter("token", $token)
         ->delete()
         ->go();
   }
@@ -4211,6 +4194,23 @@ class FusionAuthClient
     return $this->start()->uri("/api/jwt/refresh")
         ->urlParameter("userId", $userId)
         ->urlParameter("applicationId", $applicationId)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Revokes refresh tokens using the information in the JSON body. The handling for this method is the same as the revokeRefreshToken method
+   * and is based on the information you provide in the RefreshDeleteRequest object. See that method for additional information.
+   *
+   * @param array $request The request information used to revoke the refresh tokens.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function revokeRefreshTokensWithRequest($request)
+  {
+    return $this->start()->uri("/api/jwt/refresh")
+        ->bodyHandler(new JSONBodyHandler($request))
         ->delete()
         ->go();
   }
