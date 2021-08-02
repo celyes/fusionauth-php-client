@@ -1410,9 +1410,27 @@ class FusionAuthClient
   public function disableTwoFactor($userId, $methodId, $code)
   {
     return $this->start()->uri("/api/user/two-factor")
-        ->urlParameter("userId", $userId)
+        ->urlSegment($userId)
         ->urlParameter("methodId", $methodId)
         ->urlParameter("code", $code)
+        ->delete()
+        ->go();
+  }
+
+  /**
+   * Disable Two Factor authentication for a user using a JSON body rather than URL parameters.
+   *
+   * @param string $userId The Id of the User for which you're disabling Two Factor authentication.
+   * @param array $request The request information that contains the code and methodId along with any event information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function disableTwoFactorWithRequest($userId, $request)
+  {
+    return $this->start()->uri("/api/user/two-factor")
+        ->urlSegment($userId)
+        ->bodyHandler(new JSONBodyHandler($request))
         ->delete()
         ->go();
   }
