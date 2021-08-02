@@ -1160,6 +1160,26 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the user registration for the given user and application along with the given JSON body that contains the event information.
+   *
+   * @param string $userId The Id of the user whose registration is being deleted.
+   * @param string $applicationId The Id of the application to remove the registration for.
+   * @param array $request The request body that contains the event information.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteRegistrationWithRequest($userId, $applicationId, $request)
+  {
+    return $this->start()->uri("/api/user/registration")
+        ->urlSegment($userId)
+        ->urlSegment($applicationId)
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the tenant based on the given Id on the URL. This permanently deletes all information, metrics, reports and data associated
    * with the tenant and everything under the tenant (applications, users, etc).
    *
