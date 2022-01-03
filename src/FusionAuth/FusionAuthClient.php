@@ -3025,6 +3025,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves all of the members of a group.
+   *
+   * @param string $groupId The Id of the group.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveGroupMemberList($groupId)
+  {
+    return $this->start()->uri("/api/group/member")
+        ->urlSegment($groupId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves all of the groups.
    *
    *
