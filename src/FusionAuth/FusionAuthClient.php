@@ -3035,7 +3035,7 @@ class FusionAuthClient
   public function retrieveGroupMemberList($groupId)
   {
     return $this->start()->uri("/api/group/member")
-        ->urlSegment($groupId)
+        ->urlParameter("groupId", $groupId)
         ->get()
         ->go();
   }
@@ -4904,6 +4904,22 @@ class FusionAuthClient
         ->urlSegment($groupId)
         ->bodyHandler(new JSONBodyHandler($request))
         ->put()
+        ->go();
+  }
+
+  /**
+   * Creates a member in a group.
+   *
+   * @param array $request The request object that contains all the information used to create the group member(s).
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function updateGroupMembers($request)
+  {
+    return $this->start()->uri("/api/group/member")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
         ->go();
   }
 
