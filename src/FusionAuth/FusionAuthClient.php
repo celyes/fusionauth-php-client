@@ -4919,7 +4919,7 @@ class FusionAuthClient
   {
     return $this->start()->uri("/api/group/member")
         ->bodyHandler(new JSONBodyHandler($request))
-        ->post()
+        ->put()
         ->go();
   }
 
