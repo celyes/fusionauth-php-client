@@ -254,6 +254,38 @@ class FusionAuthClient
   }
 
   /**
+   * Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+   *
+   * @param array $request An object containing data necessary for completing the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnLogin($request)
+  {
+    return $this->startAnonymous()->uri("/api/webauthn/login")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+   *
+   * @param array $request An object containing data necessary for completing the registration ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function completeWebAuthnRegistration($request)
+  {
+    return $this->start()->uri("/api/webauthn/complete")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
    * Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
    * an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted 
    * to that API key.
@@ -4727,6 +4759,38 @@ class FusionAuthClient
   public function startTwoFactorLogin($request)
   {
     return $this->start()->uri("/api/two-factor/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a WebAuthn authentication ceremony by generating a new challenge for the user
+   *
+   * @param array $request An object containing data necessary for starting the authentication ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startWebAuthnLogin($request)
+  {
+    return $this->start()->uri("/api/webauthn/start")
+        ->bodyHandler(new JSONBodyHandler($request))
+        ->post()
+        ->go();
+  }
+
+  /**
+   * Start a WebAuthn registration ceremony by generating a new challenge for the user
+   *
+   * @param array $request An object containing data necessary for starting the registration ceremony
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function startWebAuthnRegistration($request)
+  {
+    return $this->start()->uri("/api/webauthn/register")
         ->bodyHandler(new JSONBodyHandler($request))
         ->post()
         ->go();
