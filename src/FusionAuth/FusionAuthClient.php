@@ -1477,6 +1477,22 @@ class FusionAuthClient
   }
 
   /**
+   * Deletes the WebAuthn credential for the given Id.
+   *
+   * @param string $id The Id of the WebAuthn credential to delete.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function deleteWebAuthnCredential($id)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlSegment($id)
+        ->delete()
+        ->go();
+  }
+
+  /**
    * Deletes the webhook for the given Id.
    *
    * @param string $webhookId The Id of the webhook to delete.
