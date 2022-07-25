@@ -4223,6 +4223,22 @@ class FusionAuthClient
   }
 
   /**
+   * Retrieves all WebAuthn credentials for the given user.
+   *
+   * @param string $userId The user's ID.
+   *
+   * @return ClientResponse The ClientResponse.
+   * @throws \Exception
+   */
+  public function retrieveWebAuthnCredentialsForUser($userId)
+  {
+    return $this->start()->uri("/api/webauthn")
+        ->urlParameter("userId", $userId)
+        ->get()
+        ->go();
+  }
+
+  /**
    * Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
    *
    * @param string $webhookId (Optional) The Id of the webhook.
